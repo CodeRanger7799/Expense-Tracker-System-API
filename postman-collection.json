@@ -1,0 +1,758 @@
+{
+	"info": {
+		"_postman_id": "expense-management-api",
+		"name": "Expense Management API",
+		"description": "Complete API collection for Expense Management System with all CRUD operations, filtering, and reporting capabilities",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Expenses",
+			"item": [
+				{
+					"name": "Create Expense",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"amount\": 125.50,\n  \"date\": \"2024-01-15\",\n  \"category\": \"TRAVEL\",\n  \"description\": \"Flight to New York\",\n  \"status\": \"PENDING\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/expenses",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"expenses"
+							]
+						},
+						"description": "Create a new expense. Status is optional and defaults to PENDING if not provided."
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Expenses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/expenses",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"expenses"
+							]
+						},
+						"description": "Retrieve all expenses ordered by date (newest first)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Expense by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/expenses/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"expenses",
+								"1"
+							]
+						},
+						"description": "Retrieve a specific expense by its ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Expense",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"amount\": 150.75,\n  \"date\": \"2024-01-15\",\n  \"category\": \"TRAVEL\",\n  \"description\": \"Flight to New York - Updated\",\n  \"status\": \"APPROVED\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/expenses/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"expenses",
+								"1"
+							]
+						},
+						"description": "Update an existing expense by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Expense",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/expenses/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"expenses",
+								"1"
+							]
+						},
+						"description": "Delete an expense by ID"
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD operations for expense management"
+		},
+		{
+			"name": "Filtering",
+			"item": [
+				{
+					"name": "Filter by Date Range",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/expenses?startDate=2024-01-01&endDate=2024-01-31",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"expenses"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2024-01-01",
+									"description": "Filter expenses from this date (inclusive)"
+								},
+								{
+									"key": "endDate",
+									"value": "2024-01-31",
+									"description": "Filter expenses up to this date (inclusive)"
+								}
+							]
+						},
+						"description": "Filter expenses by date range (both dates inclusive)"
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by Start Date Only",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/expenses?startDate=2024-01-01",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"expenses"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2024-01-01",
+									"description": "Filter expenses from this date onwards"
+								}
+							]
+						},
+						"description": "Filter expenses from a start date onwards"
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by End Date Only",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/expenses?endDate=2024-01-31",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"expenses"
+							],
+							"query": [
+								{
+									"key": "endDate",
+									"value": "2024-01-31",
+									"description": "Filter expenses up to this date"
+								}
+							]
+						},
+						"description": "Filter expenses up to an end date"
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by Single Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/expenses?categories=TRAVEL",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"expenses"
+							],
+							"query": [
+								{
+									"key": "categories",
+									"value": "TRAVEL",
+									"description": "Filter by category (TRAVEL, FOOD, OFFICE_SUPPLIES, UTILITIES, ENTERTAINMENT)"
+								}
+							]
+						},
+						"description": "Filter expenses by a single category"
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by Multiple Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/expenses?categories=TRAVEL&categories=FOOD",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"expenses"
+							],
+							"query": [
+								{
+									"key": "categories",
+									"value": "TRAVEL",
+									"description": "First category"
+								},
+								{
+									"key": "categories",
+									"value": "FOOD",
+									"description": "Second category"
+								}
+							]
+						},
+						"description": "Filter expenses by multiple categories"
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/expenses?status=APPROVED",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"expenses"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "APPROVED",
+									"description": "Filter by status (PENDING, APPROVED, REJECTED)"
+								}
+							]
+						},
+						"description": "Filter expenses by status"
+					},
+					"response": []
+				},
+				{
+					"name": "Filter with Multiple Criteria",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/expenses?startDate=2024-01-01&endDate=2024-01-31&categories=TRAVEL&categories=FOOD&status=APPROVED",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"expenses"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2024-01-01",
+									"description": "Start date"
+								},
+								{
+									"key": "endDate",
+									"value": "2024-01-31",
+									"description": "End date"
+								},
+								{
+									"key": "categories",
+									"value": "TRAVEL",
+									"description": "Category 1"
+								},
+								{
+									"key": "categories",
+									"value": "FOOD",
+									"description": "Category 2"
+								},
+								{
+									"key": "status",
+									"value": "APPROVED",
+									"description": "Status filter"
+								}
+							]
+						},
+						"description": "Combine multiple filters: date range, categories, and status"
+					},
+					"response": []
+				}
+			],
+			"description": "Filter expenses by various criteria"
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Get All Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/categories",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"categories"
+							]
+						},
+						"description": "Retrieve all available expense categories"
+					},
+					"response": []
+				}
+			],
+			"description": "Category management endpoints"
+		},
+		{
+			"name": "Reports",
+			"item": [
+				{
+					"name": "Generate Report - All Expenses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/reports",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"reports"
+							]
+						},
+						"description": "Generate a report with all expenses including total amount, count, and category subtotals"
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Report - Date Range",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/reports?startDate=2024-01-01&endDate=2024-01-31",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"reports"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2024-01-01",
+									"description": "Report start date"
+								},
+								{
+									"key": "endDate",
+									"value": "2024-01-31",
+									"description": "Report end date"
+								}
+							]
+						},
+						"description": "Generate a report for expenses within a specific date range"
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Report - By Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/reports?categories=TRAVEL",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"reports"
+							],
+							"query": [
+								{
+									"key": "categories",
+									"value": "TRAVEL",
+									"description": "Filter report by category"
+								}
+							]
+						},
+						"description": "Generate a report filtered by specific category"
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Report - By Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/reports?status=APPROVED",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"reports"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "APPROVED",
+									"description": "Filter report by status"
+								}
+							]
+						},
+						"description": "Generate a report filtered by expense status"
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Report - Multiple Filters",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/reports?startDate=2024-01-01&endDate=2024-01-31&categories=TRAVEL&categories=FOOD&status=APPROVED",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"reports"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2024-01-01",
+									"description": "Start date"
+								},
+								{
+									"key": "endDate",
+									"value": "2024-01-31",
+									"description": "End date"
+								},
+								{
+									"key": "categories",
+									"value": "TRAVEL",
+									"description": "Category 1"
+								},
+								{
+									"key": "categories",
+									"value": "FOOD",
+									"description": "Category 2"
+								},
+								{
+									"key": "status",
+									"value": "APPROVED",
+									"description": "Status filter"
+								}
+							]
+						},
+						"description": "Generate a report with multiple filters applied"
+					},
+					"response": []
+				}
+			],
+			"description": "Generate expense reports with aggregated statistics"
+		},
+		{
+			"name": "Test Scenarios",
+			"item": [
+				{
+					"name": "Create Expense - FOOD",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"amount\": 45.99,\n  \"date\": \"2024-01-20\",\n  \"category\": \"FOOD\",\n  \"description\": \"Team lunch at restaurant\",\n  \"status\": \"PENDING\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/expenses",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"expenses"
+							]
+						},
+						"description": "Create a FOOD category expense"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Expense - OFFICE_SUPPLIES",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"amount\": 89.50,\n  \"date\": \"2024-01-18\",\n  \"category\": \"OFFICE_SUPPLIES\",\n  \"description\": \"Printer paper and toner\",\n  \"status\": \"APPROVED\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/expenses",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"expenses"
+							]
+						},
+						"description": "Create an OFFICE_SUPPLIES expense"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Expense - UTILITIES",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"amount\": 250.00,\n  \"date\": \"2024-01-05\",\n  \"category\": \"UTILITIES\",\n  \"description\": \"Monthly internet bill\",\n  \"status\": \"APPROVED\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/expenses",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"expenses"
+							]
+						},
+						"description": "Create a UTILITIES expense"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Expense - ENTERTAINMENT",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"amount\": 75.00,\n  \"date\": \"2024-01-22\",\n  \"category\": \"ENTERTAINMENT\",\n  \"description\": \"Client dinner\",\n  \"status\": \"PENDING\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/expenses",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"expenses"
+							]
+						},
+						"description": "Create an ENTERTAINMENT expense"
+					},
+					"response": []
+				},
+				{
+					"name": "Error - Negative Amount",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"amount\": -50.00,\n  \"date\": \"2024-01-15\",\n  \"category\": \"FOOD\",\n  \"description\": \"Invalid negative amount\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/expenses",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"expenses"
+							]
+						},
+						"description": "Test validation error for negative amount (should return 400)"
+					},
+					"response": []
+				},
+				{
+					"name": "Error - Future Date",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"amount\": 100.00,\n  \"date\": \"2025-12-31\",\n  \"category\": \"FOOD\",\n  \"description\": \"Future date expense\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/expenses",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"expenses"
+							]
+						},
+						"description": "Test validation error for future date (should return 400)"
+					},
+					"response": []
+				},
+				{
+					"name": "Error - Invalid Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"amount\": 100.00,\n  \"date\": \"2024-01-15\",\n  \"category\": \"INVALID_CATEGORY\",\n  \"description\": \"Invalid category test\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/expenses",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"expenses"
+							]
+						},
+						"description": "Test validation error for invalid category (should return 400)"
+					},
+					"response": []
+				},
+				{
+					"name": "Error - Not Found",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/expenses/99999",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"expenses",
+								"99999"
+							]
+						},
+						"description": "Test 404 error for non-existent expense"
+					},
+					"response": []
+				}
+			],
+			"description": "Test scenarios including error cases"
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}

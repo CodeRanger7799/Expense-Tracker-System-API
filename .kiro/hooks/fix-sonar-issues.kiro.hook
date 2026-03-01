@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Fix SonarQube Issues",
+  "description": "Checks for high and critical SonarQube issues in Java files and automatically fixes them when detected",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "*.java"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Analyze this Java file for SonarQube high and critical severity issues. Check for common problems like security vulnerabilities, code smells, bugs, and maintainability issues. If any high or critical issues are found, fix them immediately following SonarQube best practices."
+  }
+}

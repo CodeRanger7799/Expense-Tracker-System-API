@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Update Java Javadocs",
+  "description": "Automatically updates javadocs for each method in Java files when they are created or edited",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "*.java"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Review this Java file and update the javadocs for each method to ensure they are complete, accurate, and follow best practices. Include parameter descriptions, return value documentation, and any exceptions thrown."
+  }
+}
